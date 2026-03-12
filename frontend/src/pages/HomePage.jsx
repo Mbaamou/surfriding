@@ -57,9 +57,6 @@ const HomePage = () => {
             <a href="#gear" className="px-12 py-5 bg-white text-black text-[11px] font-black uppercase tracking-[0.4em] transition-all hover:bg-orange-500 hover:text-white hover:scale-105">
               Explore Gear
             </a>
-            <div className="text-[10px] font-bold uppercase tracking-widest opacity-40">
-              Est. 2026 // Global Supply
-            </div>
           </div>
         </div>
 
