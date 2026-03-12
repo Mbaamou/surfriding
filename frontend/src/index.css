@@ -3,21 +3,49 @@
 @theme {
   --color-brand-primary: #ffffff;
   --color-brand-bg: #000000;
-  --color-brand-accent: #333333;
+  --color-brand-accent: #ff5e00;
 }
 
-body {
-  @apply bg-black text-white min-h-screen font-sans antialiased;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-black text-white min-h-screen antialiased overflow-x-hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
 }
 
-.glass {
-  @apply bg-white/5 backdrop-blur-sm border border-white/10;
-}
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
 
-.minimal-border {
-  @apply border border-white/10 hover:border-white/30 transition-colors;
-}
+  .minimal-border {
+    @apply border border-white/10 hover:border-white/30 transition-colors;
+  }
 
-.heuristic-transition {
-  @apply transition-all duration-300 ease-in-out;
+  .heuristic-transition {
+    @apply transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 0.7; transform: translateY(0); }
+  }
+
+  @keyframes loading-bar {
+    0% { transform: translateX(-100%); }
+    50% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 1.5s ease-out forwards;
+  }
+
+  .animate-loading-bar {
+    animation: loading-bar 1.5s infinite ease-in-out;
+  }
 }
