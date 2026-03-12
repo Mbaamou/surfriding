@@ -1,0 +1,235 @@
+# Frontend Generation Rules (React)
+
+This file defines the conventions and rules for generating and maintaining the React frontend of the Surf Booking platform.
+
+---
+
+## 1. Tech Stack
+
+* **Framework:** React (functional components only)
+* **Routing:** react-router-dom
+* **HTTP Client:** axios
+* **State (initial):** React Context or local state
+* **Styling:** Tailwind CSS (preferred)
+* **Auth:** JWT stored in cookies
+
+---
+
+## 2. Folder Structure Rules
+
+```
+frontend/
+ ├─ src/
+ │   ├─ components/        # Reusable UI components
+ │   ├─ pages/             # Route-level pages
+ │   ├─ services/          # API calls
+ │   ├─ context/           # Auth or global context
+ │   ├─ hooks/             # Custom hooks
+ │   ├─ utils/             # Helper functions
+ │   ├─ App.jsx
+ │   └─ index.jsx
+```
+
+### Rules
+
+* **components/** → dumb/presentational components
+* **pages/** → smart components tied to routes
+* **services/** → NO UI logic
+* **hooks/** → reusable logic only
+
+---
+
+## 3. Naming Conventions
+
+### Files
+
+* Components: `PascalCase.jsx`
+* Pages: `PascalCase.jsx`
+* Hooks: `useSomething.js`
+* Services: `something.service.js`
+
+### Examples
+
+* `TrainerCard.jsx`
+* `BookingPage.jsx`
+* `useAuth.js`
+* `booking.service.js`
+
+---
+
+## 4. Routing Rules
+
+All routes must be declared in **App.jsx**.
+
+### Required Routes
+
+* `/` → HomePage
+* `/login` → LoginPage
+* `/register` → RegisterPage
+* `/booking` → BookingPage (protected)
+* `/dashboard` → DashboardPage (protected)
+* `/admin` → AdminPage (admin only)
+
+###  Pattern
+
+* Must check JWT existence
+* Must redirect to `/login` if not authenticated
+
+---
+
+## 5. Component Rules
+
+### General
+
+* Use **functional components only**
+* Prefer **arrow functions**
+* Keep components under **200 lines**
+* Extract reusable logic into hooks
+
+### Structure Template
+
+```jsx
+import React from "react";
+
+const ComponentName = () => {
+  return (
+    <div>
+      {/* UI here */}
+    </div>
+  );
+};
+
+export default ComponentName;
+```
+
+---
+
+## 6. API Service Rules
+
+All backend communication goes through **services/api.js**.
+
+### Base API
+
+```js
+import axios from "axios";
+
+const API = axios.create({
+  baseURL: "http://localhost:5000/api",
+});
+
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
+export default API;
+```
+
+### Service Pattern
+
+```js
+import API from "./api";
+
+export const getTrainers = () => API.get("/trainers");
+export const createBooking = (data) => API.post("/bookings", data);
+```
+
+---
+
+## 7. State Management Rules
+
+### Phase 1 (MVP)
+
+Use:
+
+* React Context for auth
+* useState for local UI
+
+
+## 8. Auth Handling Rules
+
+### On Login
+
+* Store JWT in cookies
+* Redirect to dashboard
+
+### On Logout
+
+* Remove token
+* Clear user state
+* Redirect to home
+
+---
+
+## 9. UI/UX Rules
+
+* Mobile-first design
+* Loading states required for all API calls
+* Error messages must be user-friendly
+* Disable submit buttons while loading
+* Forms must validate before submit
+
+---
+
+## 10. Booking Flow Rules
+
+The booking page must:
+
+1. Fetch trainers
+2. Fetch equipment
+3. Allow date selection
+4. Validate availability
+5. Submit booking
+6. Show success or error feedback
+
+---
+
+## 11. Admin Panel Rules
+
+Admin pages must:
+
+* Verify user role === "admin"
+* Provide CRUD for:
+
+  * Trainers
+  * Equipment
+  * Bookings
+* Use tables with pagination when data grows
+
+---
+
+## 12. Code Quality Rules
+
+* No console.log in production
+* Use async/await (no raw promises)
+* Handle all API errors
+* Keep components small and focused
+* Reuse components whenever possible
+
+---
+
+## 13. Environment Variables
+
+Use `.env` in frontend:
+
+```
+REACT_APP_API_URL=http://localhost:5000/api
+```
+
+Never hardcode URLs in components.
+
+---
+Protected Route
+## 14. Future-Proofing (Recommended)
+
+When the project grows, consider adding:
+
+* React Query for server state
+* Calendar picker for bookings
+* WebSocket for real-time availability
+* i18n for multilingual support
+
+---
+
+**End of Rules**
