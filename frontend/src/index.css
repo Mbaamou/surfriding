@@ -4,6 +4,7 @@
   --color-brand-primary: #ffffff;
   --color-brand-bg: #000000;
   --color-brand-accent: #ff5e00;
+  --ease-heuristic: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @layer base {
@@ -27,7 +28,7 @@
   }
 
   .heuristic-transition {
-    @apply transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1);
+    @apply transition-all duration-500 ease-heuristic;
   }
 
   @keyframes fade-in {
