@@ -1,0 +1,55 @@
+{
+  "packages": [
+    {
+      "_id": "1",
+      "name": "Storm Chaser Pro",
+      "category": "Advanced Surf",
+      "price": 120,
+      "image": "/images/storm_chaser.png"
+    },
+    {
+      "_id": "2",
+      "name": "Pacific Nomad",
+      "category": "Longboard Combo",
+      "price": 95,
+      "image": "/images/pacific_nomad.png"
+    },
+    {
+      "_id": "3",
+      "name": "Azure Glide",
+      "category": "Performance Set",
+      "price": 150,
+      "image": "/images/azure_glide.png"
+    }
+  ],
+  "products": [
+    {
+      "_id": "p1",
+      "name": "Phantom Carbon Fin",
+      "brand": "FCS",
+      "stock": "12 IN STORE",
+      "image": "/images/carbon_fin.png"
+    },
+    {
+      "_id": "p2",
+      "name": "Hyperflex 4/3 Wetsuit",
+      "brand": "Rip Curl",
+      "stock": "08 IN STORE",
+      "image": "/images/wetsuit.png"
+    },
+    {
+      "_id": "p3",
+      "name": "Hex-A-Grip Traction Pad",
+      "brand": "Dakine",
+      "stock": "24 IN STORE",
+      "image": "/images/traction_pad.png"
+    },
+    {
+      "_id": "p4",
+      "name": "Comp Leash 6ft",
+      "brand": "Creatures",
+      "stock": "15 IN STORE",
+      "image": "https://images.unsplash.com/photo-1610486821217-063a8a361ef5?q=80&w=800&auto=format&fit=crop"
+    }
+  ]
+}
