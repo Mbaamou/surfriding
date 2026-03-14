@@ -11,9 +11,9 @@ export const useProducts = (searchTerm = "") => {
       try {
         setLoading(true);
         const res = await getProducts(searchTerm);
-        setProducts(res.data);
+        setProducts(res.data.data || []);
       } catch (err) {
-        setError(err.response?.data?.msg || "Failed to fetch products");
+        setError(err.response?.data?.message || "Failed to fetch products");
       } finally {
         setLoading(false);
       }

@@ -5,6 +5,8 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import BookingPage from "./pages/BookingPage";
 import EquipmentPage from "./pages/EquipmentPage";
+import ProfilePage from "./pages/ProfilePage";
+import RentalsPage from "./pages/RentalsPage";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 
@@ -24,9 +26,15 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/rentals" element={<RentalsPage />} />
         <Route path="/booking" element={
           <ProtectedRoute>
             <BookingPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <ProfilePage />
           </ProtectedRoute>
         } />
         <Route path="/equipment" element={

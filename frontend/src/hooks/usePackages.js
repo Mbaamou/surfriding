@@ -11,9 +11,9 @@ export const usePackages = (searchTerm = "") => {
       try {
         setLoading(true);
         const res = await getPackages(searchTerm);
-        setPackages(res.data);
+        setPackages(res.data.data || []);
       } catch (err) {
-        setError(err.response?.data?.msg || "Failed to fetch packages");
+        setError(err.response?.data?.message || "Failed to fetch packages");
       } finally {
         setLoading(false);
       }

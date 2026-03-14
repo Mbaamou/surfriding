@@ -1,26 +1,18 @@
-const express = require('express');
+const app = require('./app');
 const connectDB = require('./config/db');
-const cors = require('cors');
-const path = require('path');
-require('dotenv').config();
+const config = require('./config');
 
-const app = express();
-
-// Connect Database
+// Connect to MongoDB
 connectDB();
 
-// Init Middleware
-app.use(express.json({ extended: false }));
-app.use(cors());
+const server = app.listen(config.PORT, () => {
+  console.log(`🚀 Server running on port ${config.PORT} (${config.NODE_ENV})`);
+});
 
-// Serve static files from uploads
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// Define Routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/equipment', require('./routes/equipmentRoutes'));
-app.use('/api/bookings', require('./routes/bookingRoutes'));
-
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+// Graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('SIGTERM signal received: closing HTTP server');
+  server.close(() => {
+    console.log('HTTP server closed');
+  });
+});

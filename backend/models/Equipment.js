@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 
-const EquipmentSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: { type: String },
-  price: { type: Number, required: true },
-  category: { type: String },
-  image: { type: String }, // Path to the uploaded photo
-  availability: { type: Boolean, default: true },
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  createdAt: { type: Date, default: Date.now },
-});
+const equipmentSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: [true, 'Equipment name is required'] },
+    description: String,
+    pricePerDay: { type: Number, required: [true, 'Price per day is required'] },
+    images: [{ type: String }], // store file paths like /uploads/equipment/xxx.jpg
+    available: { type: Boolean, default: true },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model('Equipment', EquipmentSchema);
+module.exports = mongoose.model('Equipment', equipmentSchema);

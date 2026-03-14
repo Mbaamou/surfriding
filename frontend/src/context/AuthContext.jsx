@@ -8,21 +8,22 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      // For MVP, just assume user is logged in if token exists
-      // In a real app, you'd verify the token with the backend
-      setUser({ token });
+    const storedUser = localStorage.getItem("user");
+    if (token && storedUser) {
+      setUser(JSON.parse(storedUser));
     }
     setLoading(false);
   }, []);
 
-  const login = (token) => {
+  const login = (userData, token) => {
     localStorage.setItem("token", token);
-    setUser({ token });
+    localStorage.setItem("user", JSON.stringify(userData));
+    setUser(userData);
   };
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
   };
 
